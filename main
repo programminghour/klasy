@@ -1,0 +1,129 @@
+#include <iostream>
+#include <math.h>
+#include <sstream>
+#include <time.h>
+
+using namespace std;
+
+class punkt
+ {
+float x,y;
+public:
+punkt()
+     {x=0;y=0;};
+punkt(float x,float y)
+     {this->x=x; this->y=y;};
+  void pokaz()
+     { cout<<"("<<x<<","<<y<<")";};
+  void ustawxy(float x,float y)
+     { this->x=x; this->y=y; };
+  float podajX() {return x;}
+  float podajY() {return y;}
+
+};
+
+class osoba
+{
+protected:
+
+    string name;
+    string surname;
+    int year;
+
+public:
+
+     osoba(string im = "brak", string nazw = "brak", int rokn = 1990)
+    {
+        name = im;
+        surname = nazw;
+        year = rokn;
+    }
+
+    string Wiek()
+    {
+        int abc = 2019 - year;
+        ostringstream ss;
+        ss << abc;
+        string str = ss.str();
+        return str;
+    }
+
+    void zmien( string name, string surname, int year)
+    {
+        this -> name = name;
+        this -> surname = surname;
+        this -> year = year;
+    }
+    string pokaz()
+    {
+        ostringstream ss;
+        ss << year;
+        string str = ss.str();
+       return  "Imie: " + name +
+         "\nNazwisko: " + surname +
+         "\nRok urodzenia: " + str +
+         "\nWiek: " + Wiek() + " lat" +
+         "\nRok: " + str;
+    }
+};
+
+class student:public osoba
+{
+    protected:
+        int index;
+    public:
+        student(string name, string surname, int year, int index):osoba(name,surname, year)
+        {
+           this -> index = index;
+
+        }
+
+        string show()
+        {
+             ostringstream ss;
+            ss << index;
+            string ind = ss.str();
+            return osoba::pokaz() + "\nIndex to:" + ind;
+
+        }
+
+        void change(string name, string surname, int index, int year)
+        {
+            zmien(name, surname, year);
+            this -> index = index;
+        }
+
+
+};
+
+float odl(punkt A, punkt B)
+{
+    return sqrt(((pow(A.podajX()-B.podajX(),2)) + (pow(A.podajY()-B.podajX(),2))));
+
+}
+
+
+
+ punkt A,B(2,3);// A i B sa obiektami, punkt -klasa
+
+int main()
+{
+//cout<<"A";A.pokaz();
+ // A.ustawxy(2,3);
+//B.pokaz();
+
+  //if (A.podajX()<B.podajX()) cout<<"A blizejlewej";
+//else cout<<"B blizej lewej (albo rownostoja?)"<<endl;
+//cout<<"Odleglosc to:"<<odl(A,B)<<endl;
+
+//osoba S1;
+//S1.zmien();
+//S1.pokaz();
+
+    student S1("Anna","Nowak",1990,12);
+   cout<<S1.show();
+    S1.change("Ola","Sklodowska", 1991,13);
+    cout<<S1.show();
+
+    return 0;
+}
